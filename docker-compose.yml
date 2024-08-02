@@ -1,0 +1,16 @@
+version: '1.0'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: openmusicdb
+    environment:
+      POSTGRES_USER: mueiya
+      POSTGRES_PASSWORD: Admin123
+      POSTGRES_DB: openmusicdb
+    ports:
+      - "5432:5432"
+
+volumes:
+  db-data:
+    driver: local
