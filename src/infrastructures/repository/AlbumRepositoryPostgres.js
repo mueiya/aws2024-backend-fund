@@ -54,6 +54,15 @@ class AlbumRepositoryPostgres extends AlbumRepository {
 
     await this._pool.query(query);
   }
+
+  async deleteAlbumById(albumId) {
+    const query = {
+      text: "DELETE FROM albums WHERE id = $1 RETURNING id",
+      values: [albumId],
+    };
+
+    await this._pool.query(query);
+  }
 }
 
 module.exports = AlbumRepositoryPostgres;
