@@ -1,12 +1,19 @@
 class AlbumsHandler {
-  constructor({ postAlbumUseCase, getAlbumByIdUseCase, putAlbumByIdUseCase }) {
+  constructor({
+    postAlbumUseCase,
+    getAlbumByIdUseCase,
+    putAlbumByIdUseCase,
+    deleteAlbumByIdUseCase,
+  }) {
     this._postAlbumUseCase = postAlbumUseCase;
     this._getAlbumByIdUseCase = getAlbumByIdUseCase;
     this._putAlbumByIdUseCase = putAlbumByIdUseCase;
+    this._deleteAlbumByIdUseCase = deleteAlbumByIdUseCase;
 
     this.postAlbumHandler = this.postAlbumHandler.bind(this);
     this.getAlbumByIdHandler = this.getAlbumByIdHandler.bind(this);
     this.putAlbumByIdHandler = this.putAlbumByIdHandler.bind(this);
+    this.deleteAlbumByIdHandler = this.deleteAlbumByIdHandler.bind(this);
   }
 
   async postAlbumHandler(request, h) {
@@ -50,6 +57,18 @@ class AlbumsHandler {
     return h.response({
       status: "success",
       message: "Album berhasil diperbarui",
+    });
+  }
+
+  async deleteAlbumByIdHandler(request, h) {
+    const { id } = request.params;
+    const useCasePayload = { albumId: id };
+
+    await this._deleteAlbumByIdUseCase.execute(useCasePayload);
+
+    return h.response({
+      status: "success",
+      message: "Album berhasil dihapus",
     });
   }
 }
