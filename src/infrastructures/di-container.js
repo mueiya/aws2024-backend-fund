@@ -4,6 +4,7 @@ const AlbumRepositoryPostgres = require("./repository/AlbumRepositoryPostgres");
 const PostAlbumUseCase = require("../applications/use_case/PostAlbumUseCase");
 const AlbumsHandler = require("../interfaces/http/api/albums/handlers");
 const GetAlbumByIdUseCase = require("../applications/use_case/GetAlbumByIdUseCase");
+const PutAlbumByIdUseCase = require("../applications/use_case/PutAlbumByIdUseCase");
 
 /**
  * Albums Dependency Injection Container
@@ -17,10 +18,14 @@ const postAlbumUseCase = new PostAlbumUseCase({
 const getAlbumByIdUseCase = new GetAlbumByIdUseCase({
   albumRepository: albumRepositoryPostgres,
 });
+const putAlbumByIdUseCase = new PutAlbumByIdUseCase({
+  albumRepository: albumRepositoryPostgres,
+});
 // Handler
 const albumsHandler = new AlbumsHandler({
   postAlbumUseCase,
   getAlbumByIdUseCase,
+  putAlbumByIdUseCase,
 });
 
 module.exports = {
