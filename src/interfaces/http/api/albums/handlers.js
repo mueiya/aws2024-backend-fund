@@ -1,10 +1,12 @@
 class AlbumsHandler {
-  constructor({ postAlbumUseCase, getAlbumByIdUseCase }) {
+  constructor({ postAlbumUseCase, getAlbumByIdUseCase, putAlbumByIdUseCase }) {
     this._postAlbumUseCase = postAlbumUseCase;
     this._getAlbumByIdUseCase = getAlbumByIdUseCase;
+    this._putAlbumByIdUseCase = putAlbumByIdUseCase;
 
     this.postAlbumHandler = this.postAlbumHandler.bind(this);
     this.getAlbumByIdHandler = this.getAlbumByIdHandler.bind(this);
+    this.putAlbumByIdHandler = this.putAlbumByIdHandler.bind(this);
   }
 
   async postAlbumHandler(request, h) {
@@ -36,6 +38,19 @@ class AlbumsHandler {
         },
       })
       .code(200);
+  }
+
+  async putAlbumByIdHandler(request, h) {
+    const { id } = request.params;
+    const { name, year } = request.payload;
+    const useCasePayload = { albumId: id, name, year };
+
+    await this._putAlbumByIdUseCase.execute(useCasePayload);
+
+    return h.response({
+      status: "success",
+      message: "Album berhasil diperbarui",
+    });
   }
 }
 
