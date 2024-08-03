@@ -8,11 +8,11 @@ class PutAlbum {
   
     _validatePayload({ name, year }) {
       if (!name || !year) {
-        throw new Error("POST_ALBUM.NOT_CONTAIN_NEEDED_PROPERTY");
+        throw new Error("PUT_ALBUM.NOT_CONTAIN_NEEDED_PROPERTY");
       }
   
       if (typeof name !== "string" || typeof year !== "number") {
-        throw new Error("POST_ALBUM.NOT_MEET_DATA_TYPE_SPECIFICATION");
+        throw new Error("PUT_ALBUM.NOT_MEET_DATA_TYPE_SPECIFICATION");
       }
     }
   }
