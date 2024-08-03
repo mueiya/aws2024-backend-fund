@@ -16,6 +16,7 @@ const AlbumsHandler = require("../interfaces/http/api/albums/handlers");
 const SongsHandler = require("../interfaces/http/api/songs/handlers");
 const GetSongByIdUseCase = require("../applications/use_case/GetSongByIdUseCase");
 const PutSongByIdUseCase = require("../applications/use_case/PutSongByIdUseCase");
+const DeleteSongByIdUseCase = require("../applications/use_case/DeleteSongByIdUseCase");
 
 /**
  * Albums Dependency Injection Container
@@ -54,6 +55,9 @@ const getSongByIdUseCase = new GetSongByIdUseCase({
 const putSongByIdUseCase = new PutSongByIdUseCase({
   songRepository: songRepositoryPostgres,
 });
+const deleteSongByIdUseCase = new DeleteSongByIdUseCase({
+  songRepository: songRepositoryPostgres,
+});
 
 /**
  * Instantiate Handlers
@@ -69,6 +73,7 @@ const songsHandler = new SongsHandler({
   getSongsUseCase,
   getSongByIdUseCase,
   putSongByIdUseCase,
+  deleteSongByIdUseCase,
 });
 
 module.exports = {

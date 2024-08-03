@@ -4,16 +4,19 @@ class SongsHandler {
     getSongsUseCase,
     getSongByIdUseCase,
     putSongByIdUseCase,
+    deleteSongByIdUseCase,
   }) {
     this._postSongUseCase = postSongUseCase;
     this._getSongsUseCase = getSongsUseCase;
     this._getSongByIdUseCase = getSongByIdUseCase;
     this._putSongByIdUseCase = putSongByIdUseCase;
+    this._deleteSongByIdUseCase = deleteSongByIdUseCase;
 
     this.postSongHandler = this.postSongHandler.bind(this);
     this.getSongsHandler = this.getSongsHandler.bind(this);
     this.getSongByIdHandler = this.getSongByIdHandler.bind(this);
     this.putSongByIdHandler = this.putSongByIdHandler.bind(this);
+    this.deleteSongByIdHandler = this.deleteSongByIdHandler.bind(this);
   }
 
   async postSongHandler(request, h) {
@@ -80,6 +83,19 @@ class SongsHandler {
       .response({
         status: "success",
         message: "lagu berhasil diperbarui",
+      })
+      .code(200);
+  }
+
+  async deleteSongByIdHandler(request, h) {
+    const { id } = request.params;
+
+    await this._deleteSongByIdUseCase.execute({ songId: id });
+
+    return h
+      .response({
+        status: "success",
+        message: "lagu berhasil dihapus",
       })
       .code(200);
   }
