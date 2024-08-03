@@ -8,6 +8,9 @@ class SongRepository {
   async getSongById(songId) {
     throw new Error("SONG_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
+  async getSongsByAlbumId(albumId) {
+    throw new Error("SONG_REPOSITORY.METHOD_NOT_IMPLEMENTED");
+  }
   async verifySongById(songId) {
     throw new Error("SONG_REPOSITORY.METHOD_NOT_IMPLEMENTED");
   }
