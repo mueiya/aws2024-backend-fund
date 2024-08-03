@@ -1,12 +1,13 @@
 const Hapi = require("@hapi/hapi");
-
+// Plugins
 const albums = require("../../interfaces/http/api/albums");
+const songs = require("../../interfaces/http/api/songs");
 
 // Error Handler
 const DomainErrorTranslator = require("../../commons/exceptions/DomainErrorTranslator");
 const ClientError = require("../../commons/exceptions/ClientError");
 
-const createServer = (async) => {
+const createServer = async () => {
   const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST,
@@ -17,9 +18,12 @@ const createServer = (async) => {
     },
   });
 
-  server.register([
+  await server.register([
     {
       plugin: albums,
+    },
+    {
+      plugin: songs,
     },
   ]);
 
