@@ -9,11 +9,11 @@ class GetSongs {
 
     _validatePayload({ id, title, performer }) {
         if (!id || !title || !performer) {
-        throw new Error("GET_SONG.NOT_CONTAIN_NEEDED_PROPERTY");
+        throw new Error("GET_SONGS.NOT_CONTAIN_NEEDED_PROPERTY");
         }
     
         if (typeof id !== "string" || typeof title !== "string" || typeof performer !== "string") {
-        throw new Error("GET_SONG.NOT_MEET_DATA_TYPE_SPECIFICATION");
+        throw new Error("GET_SONGS.NOT_MEET_DATA_TYPE_SPECIFICATION");
         }
     }
 }
