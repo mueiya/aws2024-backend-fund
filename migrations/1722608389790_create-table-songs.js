@@ -16,6 +16,10 @@ exports.up = (pgm) => {
       type: "TEXT",
       notNull: true,
     },
+    performer: {
+      type: "TEXT",
+      notNull: true,
+    },
     duration: {
       type: "INTEGER",
       notNull: false,
