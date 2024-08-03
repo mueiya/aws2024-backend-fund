@@ -10,13 +10,11 @@ class SongRepositoryPostgres extends SongRepository {
   async postSong(postSongEntity) {
     const { title, year, genre, performer, duration, albumId } = postSongEntity;
     const id = `song-${this._idGenerator()}`;
-    console.log(id, title, year, genre, performer, duration, albumId);
     const query = {
       text: "INSERT INTO songs VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id",
       values: [id, title, year, genre, performer, duration, albumId],
     };
     const result = await this._pool.query(query);
-    console.log(result);
     return result.rows[0];
   }
 
@@ -51,6 +49,16 @@ class SongRepositoryPostgres extends SongRepository {
     if (!result.rowCount) {
       throw new NotFoundError("song tidak ditemukan");
     }
+  }
+
+  async getSongsByAlbumId(albumId) {
+    const query = {
+      text: "SELECT * FROM songs WHERE album = $1",
+      values: [albumId],
+    };
+
+    const result = await this._pool.query(query);
+    return result.rows;
   }
 
   async putSongById(songId, putSongEntity) {
