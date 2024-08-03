@@ -18,10 +18,24 @@ class SongRepositoryPostgres extends SongRepository {
     return result.rows[0];
   }
 
-  async getSongs() {
-    const query = {
-      text: "SELECT * FROM songs",
-    };
+  async getSongs({ title, performer }) {
+    let query;
+    if (!title && !performer) {
+      query = {
+        text: "SELECT * FROM songs",
+      };
+    } else {
+      query = {
+        text: `SELECT * FROM songs WHERE ${title ? "title ILIKE $1" : ""} ${
+          title && performer ? "AND" : ""
+        } ${performer ? `performer ILIKE $${title ? "2" : "1"}` : ""}`,
+        values: [
+          title ? `%${title}%` : undefined,
+          performer ? `%${performer}%` : undefined,
+        ].filter(Boolean),
+      };
+    }
+
     const result = await this._pool.query(query);
     return result.rows;
   }
@@ -44,7 +58,7 @@ class SongRepositoryPostgres extends SongRepository {
       text: "SELECT id FROM songs WHERE id = $1",
       values: [songId],
     };
-  
+
     const result = await this._pool.query(query);
     if (!result.rowCount) {
       throw new NotFoundError("song tidak ditemukan");
