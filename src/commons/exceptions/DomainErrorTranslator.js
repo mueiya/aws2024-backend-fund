@@ -57,6 +57,12 @@ DomainErrorTranslator._directories = {
   "GET_SONG.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
     "data type is not meet the specification"
   ),
+  "GET_ALBUM.SONGS_NOT_ARRAY": new InvariantError(
+    "songs must be an array"
+  ),
+  "GET_ALBUM.ITEMS_NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "items in songs must be an instance of GetSongs"
+  ),
 };
 
 module.exports = DomainErrorTranslator;
