@@ -10,6 +10,7 @@ const PutAlbumByIdUseCase = require("../applications/use_case/PutAlbumByIdUseCas
 const DeleteAlbumByIdUseCase = require("../applications/use_case/DeleteAlbumByIdUseCase");
 // song use case
 const PostSongUseCase = require("../applications/use_case/PostSongUseCase");
+const GetSongsUseCase = require("../applications/use_case/GetSongsUseCase");
 // handlers
 const AlbumsHandler = require("../interfaces/http/api/albums/handlers");
 const SongsHandler = require("../interfaces/http/api/songs/handlers");
@@ -42,6 +43,9 @@ const songRepositoryPostgres = new SongRepositoryPostgres(pool, nanoid);
 const postSongUseCase = new PostSongUseCase({
   songRepository: songRepositoryPostgres,
 });
+const getSongsUseCase = new GetSongsUseCase({
+  songRepository: songRepositoryPostgres,
+});
 
 /**
  * Instantiate Handlers
@@ -54,7 +58,8 @@ const albumsHandler = new AlbumsHandler({
 });
 const songsHandler = new SongsHandler({
   postSongUseCase,
-})
+  getSongsUseCase,
+});
 
 module.exports = {
   albumsHandler,
