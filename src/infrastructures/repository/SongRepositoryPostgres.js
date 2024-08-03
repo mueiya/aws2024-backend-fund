@@ -62,6 +62,15 @@ class SongRepositoryPostgres extends SongRepository {
 
     await this._pool.query(query);
   }
+
+  async deleteSongById(songId) {
+    const query = {
+      text: "DELETE FROM songs WHERE id = $1 RETURNING id",
+      values: [songId],
+    };
+
+    await this._pool.query(query);
+  }
 }
 
 module.exports = SongRepositoryPostgres;
