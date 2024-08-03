@@ -7,7 +7,6 @@ class PutSongByIdUseCase {
 
   async execute(useCasePayload) {
     const { songId } = useCasePayload;
-    console.log(useCasePayload)
     await this._songRepository.verifySongById(songId);
     const putSongEntity = new PutSong(useCasePayload);
     return this._songRepository.putSongById(songId, putSongEntity);

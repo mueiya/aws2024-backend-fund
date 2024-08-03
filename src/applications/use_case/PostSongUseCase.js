@@ -7,11 +7,8 @@ class PostSongUseCase {
   }
 
   async execute(useCasePayload) {
-    console.log(useCasePayload);
     const postSongEntity = new PostSong(useCasePayload);
-    console.log(postSongEntity)
     const postSongResult = await this._songRepository.postSong(postSongEntity);
-    console.log(postSongResult);
     return new PostedSong(postSongResult);
   }
 }
