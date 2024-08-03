@@ -37,7 +37,9 @@ class SongsHandler {
   }
 
   async getSongsHandler(request, h) {
-    const songs = await this._getSongsUseCase.execute();
+    const { title, performer } = request.query;
+    const useCasePayload = {title, performer}
+    const songs = await this._getSongsUseCase.execute(useCasePayload);
     return h
       .response({
         status: "success",

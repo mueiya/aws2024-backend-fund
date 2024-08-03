@@ -5,8 +5,9 @@ class GetSongsUseCase {
     this._songRepository = songRepository;
   }
 
-  async execute() {
-    const result = await this._songRepository.getSongs();
+  async execute(useCasePayload) {
+    const { title, performer } = useCasePayload;
+    const result = await this._songRepository.getSongs({ title, performer });
     const songs = result.map((song) => new GetSongs(song));
     return songs;
   }
