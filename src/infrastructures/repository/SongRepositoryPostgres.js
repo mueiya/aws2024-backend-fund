@@ -1,4 +1,5 @@
 const SongRepository = require("../../domains/songs/SongRepository");
+const NotFoundError = require("../../commons/exceptions/NotFoundError");
 
 class SongRepositoryPostgres extends SongRepository {
   constructor(pool, idGenerator) {
@@ -25,6 +26,41 @@ class SongRepositoryPostgres extends SongRepository {
     };
     const result = await this._pool.query(query);
     return result.rows;
+  }
+
+  async getSongById(songId) {
+    const query = {
+      text: "SELECT * FROM songs WHERE id = $1",
+      values: [songId],
+    };
+
+    const result = await this._pool.query(query);
+    if (!result.rowCount) {
+      throw new NotFoundError("song tidak ditemukan");
+    }
+    return result.rows[0];
+  }
+
+  async verifySongById(songId) {
+    const query = {
+      text: "SELECT id FROM songs WHERE id = $1",
+      values: [songId],
+    };
+  
+    const result = await this._pool.query(query);
+    if (!result.rowCount) {
+      throw new NotFoundError("song tidak ditemukan");
+    }
+  }
+
+  async putSongById(songId, putSongEntity) {
+    const { title, year, genre, performer, duration, albumId } = putSongEntity;
+    const query = {
+      text: "UPDATE songs SET title = $1, year = $2, genre = $3, performer = $4, duration = $5, album = $6 WHERE id = $7 RETURNING id",
+      values: [title, year, genre, performer, duration, albumId, songId],
+    };
+
+    await this._pool.query(query);
   }
 }
 
