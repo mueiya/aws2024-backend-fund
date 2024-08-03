@@ -17,18 +17,24 @@ const SongsHandler = require("../interfaces/http/api/songs/handlers");
 const GetSongByIdUseCase = require("../applications/use_case/GetSongByIdUseCase");
 const PutSongByIdUseCase = require("../applications/use_case/PutSongByIdUseCase");
 const DeleteSongByIdUseCase = require("../applications/use_case/DeleteSongByIdUseCase");
+const GetSongsByAlbumIdUseCase = require("../applications/use_case/GetSongsByAlbumIdUseCase");
 
+// Repository
+const songRepositoryPostgres = new SongRepositoryPostgres(pool, nanoid);
+const albumRepositoryPostgres = new AlbumRepositoryPostgres(pool, nanoid);
 /**
  * Albums Dependency Injection Container
  */
-// Repository
-const albumRepositoryPostgres = new AlbumRepositoryPostgres(pool, nanoid);
 // Use Case
+const getSongByAlbumIdUseCase = new GetSongsByAlbumIdUseCase({
+  songRepository: songRepositoryPostgres,
+});
 const postAlbumUseCase = new PostAlbumUseCase({
   albumRepository: albumRepositoryPostgres,
 });
 const getAlbumByIdUseCase = new GetAlbumByIdUseCase({
   albumRepository: albumRepositoryPostgres,
+  getSongByAlbumIdUseCase,
 });
 const putAlbumByIdUseCase = new PutAlbumByIdUseCase({
   albumRepository: albumRepositoryPostgres,
@@ -40,8 +46,6 @@ const deleteAlbumByIdUseCase = new DeleteAlbumByIdUseCase({
 /**
  * Songs Dependency Injection Container
  */
-// Repository
-const songRepositoryPostgres = new SongRepositoryPostgres(pool, nanoid);
 // Use Case
 const postSongUseCase = new PostSongUseCase({
   songRepository: songRepositoryPostgres,
