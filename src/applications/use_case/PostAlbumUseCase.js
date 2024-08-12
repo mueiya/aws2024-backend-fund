@@ -8,7 +8,8 @@ class PostAlbumUseCase {
 
   async execute(useCasePayload) {
     const postAlbumEntity = new PostAlbum(useCasePayload);
-    const postAlbumResult = await this._albumRepository.postAlbum(postAlbumEntity);
+    const postAlbumResult =
+      await this._albumRepository.postAlbum(postAlbumEntity);
     return new PostedAlbum(postAlbumResult);
   }
 }

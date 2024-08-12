@@ -15,7 +15,11 @@ class PostSong {
       throw new Error("POST_ALBUM.NOT_CONTAIN_NEEDED_PROPERTY");
     }
 
-    if (typeof title !== "string" || typeof year !== "number" || typeof genre !== "string" ) {
+    if (
+      typeof title !== "string" ||
+      typeof year !== "number" ||
+      typeof genre !== "string"
+    ) {
       throw new Error("POST_ALBUM.NOT_MEET_DATA_TYPE_SPECIFICATION");
     }
 
