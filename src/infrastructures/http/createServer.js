@@ -30,7 +30,7 @@ const createServer = async () => {
   server.route({
     method: "GET",
     path: "/",
-    handler: (request, h) => {
+    handler: () => {
       return "Hello World!";
     },
   });
