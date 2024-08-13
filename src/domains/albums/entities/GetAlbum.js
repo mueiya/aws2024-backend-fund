@@ -1,4 +1,4 @@
-const GetSongs = require("../../songs/entities/GetSongs");
+const GetSongsItems = require("../../songs/entities/GetSongsItems");
 
 class GetAlbum {
   constructor(payload) {
@@ -29,7 +29,7 @@ class GetAlbum {
       }
 
       songs.forEach((song) => {
-        if (song instanceof GetSongs !== true) {
+        if (song instanceof GetSongsItems !== true) {
           throw new Error("GET_ALBUM.ITEMS_NOT_MEET_DATA_TYPE_SPECIFICATION");
         }
       });

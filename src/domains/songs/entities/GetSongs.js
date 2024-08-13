@@ -1,24 +1,22 @@
+const GetSongsItems = require("./GetSongsItems");
+
 class GetSongs {
   constructor(payload) {
     this._validatePayload(payload);
 
-    this.id = payload.id;
-    this.title = payload.title;
-    this.performer = payload.performer;
+    this.songArray = payload.songArray;
   }
 
-  _validatePayload({ id, title, performer }) {
-    if (!id || !title || !performer) {
-      throw new Error("GET_SONGS.NOT_CONTAIN_NEEDED_PROPERTY");
+  _validatePayload({ songArray }) {
+    if (!Array.isArray(songArray)) {
+      throw new Error("GET_SONGS.NOT_ARRAY");
     }
 
-    if (
-      typeof id !== "string" ||
-      typeof title !== "string" ||
-      typeof performer !== "string"
-    ) {
-      throw new Error("GET_SONGS.NOT_MEET_DATA_TYPE_SPECIFICATION");
-    }
+    songArray.forEach((song) => {
+      if (song instanceof GetSongsItems !== true) {
+        throw new Error("GET_SONGS.ITEMS_NOT_MEET_DATA_TYPE_SPECIFICATION");
+      }
+    });
   }
 }
 
