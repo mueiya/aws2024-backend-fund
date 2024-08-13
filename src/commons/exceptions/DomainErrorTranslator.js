@@ -57,9 +57,19 @@ DomainErrorTranslator._directories = {
   "GET_SONG.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
     "data type is not meet the specification",
   ),
+  "GET_SONGS.NOT_ARRAY": new InvariantError("songs must be an array"),
+  "GET_SONGS.ITEMS_NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "items in songs must be an instance of GetSongsItems",
+  ),
+  "GET_SONGS_ITEMS.NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
+    "items in songs must be an instance of GetSongsItems",
+  ),
+  "GET_SONGS_ITEMS.NOT_CONTAIN_NEEDED_PROPERTY": new InvariantError(
+    "property that needed is not provided",
+  ),
   "GET_ALBUM.SONGS_NOT_ARRAY": new InvariantError("songs must be an array"),
   "GET_ALBUM.ITEMS_NOT_MEET_DATA_TYPE_SPECIFICATION": new InvariantError(
-    "items in songs must be an instance of GetSongs",
+    "items in songs must be an instance of GetSongsItems",
   ),
 };
 
