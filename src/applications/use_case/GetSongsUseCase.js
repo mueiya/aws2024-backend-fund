@@ -1,4 +1,5 @@
 const GetSongs = require("../../domains/songs/entities/GetSongs");
+const GetSongsItems = require("../../domains/songs/entities/GetSongsItems");
 
 class GetSongsUseCase {
   constructor({ songRepository }) {
@@ -8,8 +9,11 @@ class GetSongsUseCase {
   async execute(useCasePayload) {
     const { title, performer } = useCasePayload;
     const result = await this._songRepository.getSongs({ title, performer });
-    const songs = result.map((song) => new GetSongs(song));
-    return songs;
+    // const songs = result.map((song) => new GetSongsItems(song));
+    // return songs;
+    return new GetSongs({
+      songArray: result.map((song) => new GetSongsItems(song)),
+    });
   }
 }
 

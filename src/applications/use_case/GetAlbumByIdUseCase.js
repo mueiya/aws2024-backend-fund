@@ -9,8 +9,10 @@ class GetAlbumByIdUseCase {
   async execute(useCasePayload) {
     const { albumId } = useCasePayload;
     const getAlbumResult = await this._albumRepository.getAlbumById(albumId);
-    const songs = await this._getSongByAlbumIdUseCase.execute({ albumId });
-    return new GetAlbum({ songs: songs, ...getAlbumResult });
+    const getSongsResult = await this._getSongByAlbumIdUseCase.execute({
+      albumId,
+    });
+    return new GetAlbum({ songs: getSongsResult.songArray, ...getAlbumResult });
   }
 }
 
